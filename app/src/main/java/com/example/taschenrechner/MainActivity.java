@@ -10,17 +10,31 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView text;
-    int zwischenErgebnis;
-    String lastAction;
+    // int zwischenErgebnis;
+    // String lastAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.text = findViewById(R.id.textView);
-        this.zwischenErgebnis = 0;
-        this.lastAction = "";
+        // Globals.getInstance().setText(findViewById(R.id.textView));
+        try {
+            this.text = findViewById(R.id.textView);
+            this.text.setText(Globals.getInstance().getZwischenErgebnis() + "");
+        } catch (ExceptionInInitializerError e) {
+            this.text = findViewById(R.id.textView);
+            this.text.setText(0 + "");
+            System.out.println("Try catch function!");
+        }
+
+        //this.text = findViewById(R.id.textView);
+        //this.text.setText(0 + "");
+
+        //Globals.getInstance().setZwischenErgebnis(0);
+        //Globals.getInstance().setLastAction("");
+        //this.zwischenErgebnis = 0;
+        //this.lastAction = "";
 
         Button button0 = findViewById(R.id.button0);
         Button button1 = findViewById(R.id.button1);
@@ -33,10 +47,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button button8 = findViewById(R.id.button8);
         Button button9 = findViewById(R.id.button9);
 
-        Button buttonAdd = (Button)findViewById(R.id.buttonAdd);
-        Button buttonSub = (Button)findViewById(R.id.buttonSub);
-        Button buttonCE = (Button)findViewById(R.id.buttonCE);
-        Button buttonGleich = (Button)findViewById(R.id.buttonGleich);
+        Button buttonAdd = (Button) findViewById(R.id.buttonAdd);
+        Button buttonSub = (Button) findViewById(R.id.buttonSub);
+        Button buttonCE = (Button) findViewById(R.id.buttonCE);
+        Button buttonGleich = (Button) findViewById(R.id.buttonGleich);
 
         button0.setOnClickListener(this);
         button1.setOnClickListener(this);
@@ -52,36 +66,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastAction == "plus"){
+                if (Globals.getInstance().getLastAction() == "plus") {
+                    int number = Integer.valueOf(Globals.getInstance().getText());
+                    Globals.getInstance().setZwischenErgebnis(Globals.getInstance().getZwischenErgebnis() + number);
+                } else if (Globals.getInstance().getLastAction() == "minus") {
                     int number = Integer.valueOf(text.getText().toString());
-                    zwischenErgebnis = zwischenErgebnis + number;
-                } else if(lastAction == "minus"){
-                    int number = Integer.valueOf(text.getText().toString());
-                    zwischenErgebnis = zwischenErgebnis - number;
+                    Globals.getInstance().setZwischenErgebnis(Globals.getInstance().getZwischenErgebnis() - number);
                 } else {
-                    zwischenErgebnis = Integer.valueOf(text.getText().toString());
-
+                    //zwischenErgebnis = Integer.valueOf(text.getText().toString());
+                    Globals.getInstance().setZwischenErgebnis(Integer.valueOf(text.getText().toString()));
                 }
                 text.setText(0 + "");
-                lastAction = "plus";
+                Globals.getInstance().setLastAction("plus");
+                // lastAction = "plus";
             }
         });
 
         buttonSub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastAction == "plus"){
+                if (Globals.getInstance().getLastAction() == "plus") {
                     int number = Integer.valueOf(text.getText().toString());
-                    zwischenErgebnis = zwischenErgebnis + number;
-                } else if(lastAction == "minus"){
+                    Globals.getInstance().setZwischenErgebnis(Globals.getInstance().getZwischenErgebnis() + number);
+                    //zwischenErgebnis = zwischenErgebnis + number;
+                } else if (Globals.getInstance().getLastAction() == "minus") {
                     int number = Integer.valueOf(text.getText().toString());
-                    zwischenErgebnis = zwischenErgebnis - number;
+                    Globals.getInstance().setZwischenErgebnis(Globals.getInstance().getZwischenErgebnis() - number);
+                    //zwischenErgebnis = zwischenErgebnis - number;
                 } else {
-                    zwischenErgebnis = Integer.valueOf(text.getText().toString());
+                    Globals.getInstance().setZwischenErgebnis(Integer.valueOf(text.getText().toString()));
+                    //zwischenErgebnis = Integer.valueOf(text.getText().toString());
 
                 }
                 text.setText(0 + "");
-                lastAction = "minus";
+                Globals.getInstance().setLastAction("minus");
+                // lastAction = "minus";
             }
         });
 
@@ -89,25 +108,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 text.setText(0 + "");
-                lastAction = "";
+                Globals.getInstance().setLastAction("");
+                //lastAction = "";
             }
         });
 
         buttonGleich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lastAction == "plus"){
+                if (Globals.getInstance().getLastAction() == "plus") {
                     int number = Integer.valueOf(text.getText().toString());
-                    zwischenErgebnis = zwischenErgebnis + number;
-                } else if(lastAction == "minus"){
+                    Globals.getInstance().setZwischenErgebnis(Globals.getInstance().getZwischenErgebnis() + number);
+                    //zwischenErgebnis = zwischenErgebnis + number;
+                } else if (Globals.getInstance().getLastAction() == "minus") {
                     int number = Integer.valueOf(text.getText().toString());
-                    zwischenErgebnis = zwischenErgebnis - number;
+                    Globals.getInstance().setZwischenErgebnis(Globals.getInstance().getZwischenErgebnis() - number);
+                    //zwischenErgebnis = zwischenErgebnis - number;
                 } else {
-                    zwischenErgebnis = Integer.valueOf(text.getText().toString());
+                    Globals.getInstance().setZwischenErgebnis(Integer.valueOf(text.getText().toString()));
+                    //zwischenErgebnis = Integer.valueOf(text.getText().toString());
                 }
 
-                text.setText(zwischenErgebnis + "");
-                lastAction = "";
+                text.setText(Globals.getInstance().getZwischenErgebnis() + "");
+                Globals.getInstance().setLastAction("");
+                // lastAction = "";
             }
         });
 
@@ -116,13 +140,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String textField = this.text.getText().toString();
-        String number = ((Button)v).getText().toString();
+        String number = ((Button) v).getText().toString();
         int textFieldInt = Integer.valueOf(textField);
 
-        if(textFieldInt == 0) {
+        if (textFieldInt == 0) {
             this.text.setText(number);
         } else {
             this.text.setText(textField + "" + number);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.text.setText(this.text.getText().toString() + "");
     }
 }
