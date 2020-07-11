@@ -6,11 +6,13 @@ import android.widget.TextView;
 public class Globals {
     private static final Globals instance = new Globals();
 
+    private int textValue;
     private int zwischenErgebnis;
     private String lastAction;
     private String text;
 
     private Globals() {
+        this.textValue = 0;
         this.zwischenErgebnis = 0;
         this.lastAction = "";
         this.text = this.zwischenErgebnis + "";
@@ -44,5 +46,12 @@ public class Globals {
         this.text = text;
     }
 
+    public int getTextValue(){
+        return this.textValue;
+    }
+
+    public void setTextValue(int textValue){
+        this.textValue = textValue;
+    }
 
 }

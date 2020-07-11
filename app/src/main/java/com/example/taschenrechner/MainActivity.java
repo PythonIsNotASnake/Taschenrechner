@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Globals.getInstance().setText(findViewById(R.id.textView));
         try {
             this.text = findViewById(R.id.textView);
-            this.text.setText(Globals.getInstance().getZwischenErgebnis() + "");
+            // this.text.setText(Globals.getInstance().getZwischenErgebnis() + "");
+            this.text.setText(Globals.getInstance().getTextValue() + "");
         } catch (ExceptionInInitializerError e) {
             this.text = findViewById(R.id.textView);
             this.text.setText(0 + "");
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Globals.getInstance().setZwischenErgebnis(Integer.valueOf(text.getText().toString()));
                 }
                 text.setText(0 + "");
+                Globals.getInstance().setTextValue(0);
                 Globals.getInstance().setLastAction("plus");
                 // lastAction = "plus";
             }
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
                 text.setText(0 + "");
+                Globals.getInstance().setTextValue(0);
                 Globals.getInstance().setLastAction("minus");
                 // lastAction = "minus";
             }
@@ -108,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 text.setText(0 + "");
+                Globals.getInstance().setTextValue(0);
                 Globals.getInstance().setLastAction("");
                 //lastAction = "";
             }
@@ -130,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 text.setText(Globals.getInstance().getZwischenErgebnis() + "");
+                Globals.getInstance().setTextValue(Globals.getInstance().getZwischenErgebnis());
                 Globals.getInstance().setLastAction("");
                 // lastAction = "";
             }
@@ -145,14 +150,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (textFieldInt == 0) {
             this.text.setText(number);
+            Globals.getInstance().setTextValue(Integer.valueOf(number));
         } else {
             this.text.setText(textField + "" + number);
+            Globals.getInstance().setTextValue(Integer.valueOf(textField + "" + number));
         }
     }
 
-    @Override
+    /*@Override
     protected void onDestroy() {
         super.onDestroy();
         this.text.setText(this.text.getText().toString() + "");
-    }
+    }*/
 }
